@@ -1,0 +1,116 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: #007AC1; /* Winnipeg Blue */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    width: 60px; /* Resize the logo */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add spacing between the logo and text */
+}
+
+header .logo h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #FFD700; /* Prairie Gold */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Navigation Menu */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 8px 15px;
+    background: #005B96; /* Darker Winnipeg Blue */
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    background: #FFD700; /* Prairie Gold */
+    color: #005B96;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+h2 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th a {
+    color: #007AC1;
+    text-decoration: none;
+}
+
+th a:hover {
+    text-decoration: underline;
+}
+
+img {
+    border-radius: 5px;
+}
+
+/* Footer */
+/* footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #007AC1; /* Match footer color with header */
+    /* color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%; */
+/* }  */

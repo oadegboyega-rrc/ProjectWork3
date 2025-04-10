@@ -1,0 +1,403 @@
+/* General Styles */
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background: #007AC1; /* Winnipeg Blue */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    width: 60px; /* Resize the logo */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add spacing between the logo and text */
+}
+
+header .logo h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #FFD700; /* Prairie Gold */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Navigation Menu */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 8px 15px;
+    background: #005B96; /* Darker Winnipeg Blue */
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    background: #FFD700; /* Prairie Gold */
+    color: #005B96;
+}
+
+/* Dropdown Menu */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #FFD700; /* Prairie Gold */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px 15px;
+    color: #005B96; /* Darker Winnipeg Blue */
+    text-decoration: none;
+    background: #FFD700; /* Prairie Gold */
+    transition: background 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background: #007AC1; /* Winnipeg Blue */
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Container Styles */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Call-to-Action Section */
+.call-to-action {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background: #FFD700; /* Prairie Gold */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    animation: pulse 3s infinite;
+}
+
+.call-to-action p {
+    font-size: 18px;
+    color: #005B96; /* Darker Winnipeg Blue */
+}
+
+.call-to-action a {
+    color: #007AC1; /* Winnipeg Blue */
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.call-to-action a:hover {
+    color: #333;
+}
+
+/* Featured Categories */
+.featured-categories {
+    text-align: center;
+    margin: 40px 0;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.featured-categories h2 {
+    font-size: 24px;
+    color: #007AC1; /* Winnipeg Blue */
+    margin-bottom: 20px;
+}
+
+.featured-categories ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.featured-categories ul li {
+    background: #FFD700; /* Prairie Gold */
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.featured-categories ul li:hover {
+    background: #007AC1; /* Winnipeg Blue */
+    color: white;
+    transform: scale(1.1);
+}
+
+.featured-categories ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.featured-categories ul li a:hover {
+    color: white;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #007AC1; /* Match footer color with header */
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+th {
+    background-color: #007AC1; /* Winnipeg Blue */
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+th a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+th a:hover {
+    text-decoration: underline;
+}
+
+td {
+    color: #333;
+}
+
+td img {
+    border-radius: 5px;
+    max-width: 100px;
+    height: auto;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Action Links */
+td a {
+    color: #007AC1;
+    text-decoration: none;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+td a:hover {
+    text-decoration: underline;
+    color: #005B96;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    color: #007AC1;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bolder;
+    padding: 10px 15px 0px 0px;
+}
+
+.pagination a:hover {
+    text-decoration: none;
+    color: #005B96;
+}
+
+.featured-categories {
+    margin-top: 20px;
+}
+
+.featured-categories h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.recipe-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.recipe-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img.recipe-image {
+    max-width: 90%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.recipe-card h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+}
+
+.recipe-card p {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.categories-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.category-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.category-card h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.category-card img.category-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.category-recipes h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.category-recipes ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-recipes ul li {
+    margin-bottom: 5px;
+}
+
+.category-recipes ul li a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.category-recipes ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+    }
+}

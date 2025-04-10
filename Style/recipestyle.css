@@ -1,0 +1,109 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    justify-content: center;
+    background-color: #3e8e41;
+    border-radius: 5px;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #2e7031;
+}
+
+/* Container for Recipe Details */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Recipe Header */
+.recipe-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.recipe-header h1 {
+    font-size: 32px;
+    margin: 0;
+    color: #4CAF50;
+}
+
+/* Resizing Recipe Images */
+.recipe-header img {
+    max-width: 100%; /* Ensures the image does not exceed the container width */
+    width: 300px; /* Fixed width */
+    height: 200px; /* Fixed height */
+    object-fit: cover; /* Ensures the image is cropped proportionally */
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Recipe Details */
+.recipe-details {
+    margin-top: 20px;
+}
+
+.recipe-details p {
+    line-height: 1.6;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.recipe-details .category {
+    font-weight: bold;
+    color: #4CAF50;
+    margin-top: 10px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #4CAF50;
+    color: white;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+}
