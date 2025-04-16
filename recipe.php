@@ -31,7 +31,9 @@ if (!$recipe) {
     <h1>Winnipeg Recipe Hub</h1>
     <nav>
         <ul>
-            <li><a href="index.php">Home</a></li>
+            <?php if (isset($_SESSION['role'])): ?>
+                <li><a href="index.php">Home</a></li>
+            <?php endif; ?>
             <!-- <li><a href="category.php">Categories</a></li>
             <?php if (isset($_SESSION['role'])): ?>
                 <li><a href="create_page.php">Submit Recipe</a></li>
@@ -61,10 +63,13 @@ if (!$recipe) {
     </div>
 
     <div class="recipe-details">
-        <p><?php echo nl2br(htmlspecialchars($recipe['description'])); ?></p>
-        <p><strong>Ingredients:</strong><br><?php echo nl2br(htmlspecialchars($recipe['ingredients'])); ?></p>
-        <p><strong>Instructions:</strong><br><?php echo nl2br(htmlspecialchars($recipe['instructions'])); ?></p>
-        <p class="category">Category: <?php echo htmlspecialchars($recipe['category_id']); ?></p>
+        <article>
+            <h1><?=htmlspecialchars($recipe['title']); ?></h1>
+            <p><?php echo nl2br(htmlspecialchars($recipe['description'])); ?></p>
+            <p><strong>Ingredients:</strong><br><?php echo nl2br(htmlspecialchars($recipe['ingredients'])); ?></p>
+            <p><strong>Instructions:</strong><br><?php echo nl2br(htmlspecialchars($recipe['instructions'])); ?></p>
+            <p class="category">Category: <?php echo htmlspecialchars($recipe['category_id']); ?></p>
+        </article>
     </div>
 
     <!-- Include comments section -->

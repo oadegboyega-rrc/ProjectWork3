@@ -66,12 +66,16 @@ function resizeImage($file, $width, $height, $type) {
 
 // Handle recipe submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $title = trim($_POST['title']);
-    $description = trim($_POST['description']);
-    $ingredients = trim($_POST['ingredients']);
-    $instructions = trim($_POST['instructions']);
+    $title = htmlspecialchars(trim($_POST['title']));
+    $description = htmlspecialchars(trim($_POST['description']));
+    $ingredients = htmlspecialchars(trim($_POST['ingredients']));
+    $instructions = htmlspecialchars(trim($_POST['instructions']));
     $category_id = $_POST['category_id'];
     $user_id = $_SESSION['user_id'];
+
+    if (empty($title) || empty($description) || empty($ingredients) || empty($instructions) || empty($category_id)) {
+        die("All fields are required.");
+    }   
 
     // Initialize image path as NULL
     $image_path = null;
@@ -106,6 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             echo "Invalid image type or file size.";
         }
     }
+    
 
     // Insert the recipe into the database
     $stmt = $db->prepare("INSERT INTO recipes (title, description, ingredients, instructions, image_path, category_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -121,7 +126,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <title>Create Recipe</title>
     <link rel="stylesheet" href="Style/createpagestyle.css">
+    <script src="tinymce/js/tinymce/tinymce.min.js"></script>
 </head>
+<script>
+    tinymce.init({
+        selector: '.wysiwyg-editor',
+        plugins: 'lists link image code',
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+        menubar: false,
+        height: 300
+    });
+</script>
 <body>
     <h1>Create a New Recipe</h1>
     <form method="POST" enctype="multipart/form-data">
@@ -129,16 +144,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <input type="text" name="title" id="title" required>
 
         <label for="description">Description:</label>
-        <textarea name="description" id="description" required></textarea>
+        <textarea name="description" id="description" class="wysiwyg-editor" required></textarea>
 
         <label for="ingredients">Ingredients:</label>
-        <textarea name="ingredients" id="ingredients" required></textarea>
+        <textarea name="ingredients" id="ingredients" class="wysiwyg-editor" required></textarea>
 
         <label for="instructions">Instructions:</label>
-        <textarea name="instructions" id="instructions" required></textarea>
-
+        <textarea name="instructions" id="instructions" class="wysiwyg-editor" required></textarea>
         <label for="image">Image (optional):</label>
-        <input type="file" name="image" id="image" accept="image/*">
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/gif">
 
         <label for="category">Category:</label>
         <select name="category_id" id="category" required>

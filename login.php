@@ -63,10 +63,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="Style/loginstyle.css">
 </head>
 <body>
+    <header class=""header>
+        <div class="logo">
+            <img src="uploads/logo_image.png" alt="Winnipeg Recipe Logo">
+            <h1>Winnipeg Recipe!</h1>
+        </div>
+    </header>
+    
     <div class="login-container">
         <form method="POST" action="">
             <h2>Login</h2>
@@ -85,12 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" autocomplete="username" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
             </div>
 
             <button type="submit">Login</button>
@@ -100,5 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </form>
     </div>
+
+    <footer>
+        <p>&copy; 2025 Winnipeg Recipe Hub</p>
+    </footer>
 </body>
 </html>

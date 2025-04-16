@@ -29,8 +29,18 @@ if (!$recipe) {
 $categoriesStmt = $db->query("SELECT * FROM categories ORDER BY name ASC");
 $categories = $categoriesStmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Generate CSRF token if not already set
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // CSRF protection
+    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die("Invalid CSRF token.");
+    }
+
     $title = trim($_POST['title']);
     $description = trim($_POST['description']);
     $ingredients = trim($_POST['ingredients']);
@@ -57,7 +67,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 }
                 $image_path = $new_image_path;
                 imagedestroy($resized_image);
+            } else {
+                $error_message = "Error resizing or saving the image.";
             }
+        } else {
+            $error_message = "Invalid image type. Allowed types: jpg, jpeg, png, gif.";
         }
     }
 
@@ -79,6 +93,47 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $error_message = "All fields are required.";
     }
 }
+
+// Helper function to resize images
+function resizeImage($file, $width, $height, $type) {
+    switch ($type) {
+        case 'jpg':
+        case 'jpeg':
+            $src = imagecreatefromjpeg($file);
+            break;
+        case 'png':
+            $src = imagecreatefrompng($file);
+            break;
+        case 'gif':
+            $src = imagecreatefromgif($file);
+            break;
+        default:
+            return false;
+    }
+
+    $orig_width = imagesx($src);
+    $orig_height = imagesy($src);
+
+    $aspect_ratio = $orig_width / $orig_height;
+    if ($width / $height > $aspect_ratio) {
+        $width = $height * $aspect_ratio;
+    } else {
+        $height = $width / $aspect_ratio;
+    }
+
+    $dst = imagecreatetruecolor($width, $height);
+
+    if ($type === 'png' || $type === 'gif') {
+        imagecolortransparent($dst, imagecolorallocatealpha($dst, 0, 0, 0, 127));
+        imagealphablending($dst, false);
+        imagesavealpha($dst, true);
+    }
+
+    imagecopyresampled($dst, $src, 0, 0, 0, 0, $width, $height, $orig_width, $orig_height);
+    imagedestroy($src);
+
+    return $dst;
+}
 ?>
 
 <!DOCTYPE html>
@@ -87,38 +142,55 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <title>Edit Recipe</title>
     <link rel="stylesheet" href="Style/editstyle.css">
+    <script src="tinymce/js/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea.wysiwyg-editor',
+            plugins: 'lists link image code fullscreen preview',
+            toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | code',
+            menubar: false,
+            height: 300
+        });
+    </script>
 </head>
 <body>
     <h1>Edit Recipe</h1>
+    <?php if (!empty($error_message)): ?>
+        <div class="error-message"><?= htmlspecialchars($error_message); ?></div>
+    <?php endif; ?>
     <form method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
         <label for="title">Title:</label>
         <input type="text" name="title" id="title" value="<?= htmlspecialchars($recipe['title']); ?>" required>
 
         <label for="description">Description:</label>
-        <textarea name="description" id="description" required><?= htmlspecialchars($recipe['description']); ?></textarea>
+        <textarea name="description" id="description" class="wysiwyg-editor" required><?= htmlspecialchars($recipe['description']); ?></textarea>
 
         <label for="ingredients">Ingredients:</label>
-        <textarea name="ingredients" id="ingredients" required><?= htmlspecialchars($recipe['ingredients']); ?></textarea>
+        <textarea name="ingredients" id="ingredients" class="wysiwyg-editor" required><?= htmlspecialchars($recipe['ingredients']); ?></textarea>
 
         <label for="instructions">Instructions:</label>
-        <textarea name="instructions" id="instructions" required><?= htmlspecialchars($recipe['instructions']); ?></textarea>
+        <textarea name="instructions" id="instructions" class="wysiwyg-editor" required><?= htmlspecialchars($recipe['instructions']); ?></textarea>
+
+        <label for="image">Image (optional):</label>
+        <input type="file" name="image" id="image" accept="image/*">
+        <?php if (!empty($recipe['image_path'])): ?>
+            <p>Current Image: <img src="<?= htmlspecialchars($recipe['image_path']); ?>" alt="Recipe Image" width="100"></p>
+            <label><input type="checkbox" name="delete_image"> Delete current image</label>
+        <?php endif; ?>
 
         <label for="category">Category:</label>
         <select name="category_id" id="category" required>
+            <option value="">Select a category</option>
             <?php foreach ($categories as $category): ?>
-                <option value="<?= $category['id']; ?>" <?= ($recipe['category_id'] == $category['id']) ? 'selected' : ''; ?>>
+                <option value="<?= $category['id']; ?>" <?= $recipe['category_id'] == $category['id'] ? 'selected' : ''; ?>>
                     <?= htmlspecialchars($category['name']); ?>
                 </option>
             <?php endforeach; ?>
         </select>
 
-        <label for="image">Recipe Image:</label>
-        <?php if (!empty($recipe['image_path'])): ?>
-            <img src="<?= htmlspecialchars($recipe['image_path']); ?>" alt="Recipe Image" width="100">
-        <?php endif; ?>
-        <input type="file" name="image" id="image" accept="image/*">
-
-        <button type="submit">Update Recipe</button>
+        <button type="submit">Update Recipe</button>`
+        <a href="recipe.php?id=<?= $recipe['id']; ?>">Back to Recipe</a>
     </form>
 </body>
 </html>

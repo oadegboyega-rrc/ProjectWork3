@@ -59,17 +59,15 @@ try {
     </div>
     <nav>
         <ul>
-            <li><a href="index.php">Home</a></li>
+            <!-- <li><a href="index.php">Home</a></li> -->
             <li class="dropdown">
                 <a href="#">Categories</a>
                 <div class="dropdown-content">
-                    <?php if (empty($categories)): ?>
-                        <a href="#">No categories available</a>
-                    <?php else: ?>
-                        <?php foreach ($categories as $category): ?>
-                            <a href="#"><?php echo htmlspecialchars($category['name']); ?></a>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                    <?php foreach ($categories as $category): ?>
+                        <a href="view_category.php?id=<?= $category['id']; ?>">
+                            <?= htmlspecialchars($category['name']); ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </li>
             <?php if ($isLoggedIn): ?>
@@ -82,44 +80,9 @@ try {
             <?php endif; ?>
         </ul>
     </nav>
+
+    <form method="GET" action="search.php" class="search-form">
+        <input type="text" name="query" placeholder="Search pages..." required>
+        <button type="submit">Search</button>
+    </form>
 </header>
-
-<div class="container">
-    <h1>Welcome to Winnipeg Recipe Hub</h1>
-    <div class="call-to-action">
-        <p>Explore our recipes by category below!</p>
-    </div>
-
-    <div class="categories-section">
-        <?php if (empty($categoryImages)): ?>
-            <p>No categories available at this time. Please check back later!</p>
-        <?php else: ?>
-            <?php foreach ($categoryImages as $categoryId => $category): ?>
-                <div class="category-card">
-                    <h2><?php echo htmlspecialchars($category['name']); ?></h2>
-                    <?php if (!empty($category['image'])): ?>
-                        <img src="<?php echo htmlspecialchars($category['image']); ?>" alt="<?php echo htmlspecialchars($category['name']); ?>" class="category-image">
-                    <?php else: ?>
-                        <img src="uploads/default_recipe_image.png" alt="Default Category Image" class="category-image">
-                    <?php endif; ?>
-                    <div class="category-recipes">
-                        <h3>Recipes:</h3>
-                        <ul>
-                            <?php if (!empty($recipesByCategory[$category['name']])): ?>
-                                <?php foreach ($recipesByCategory[$category['name']] as $recipe): ?>
-                                    <li class="dropdown-recipe">
-                                        <a href="recipe.php?id=<?php echo $recipe['id']; ?>"><?php echo htmlspecialchars($recipe['title']); ?></a>
-                                    </li>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <li>No recipes available</li>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
-</div>
-</body>
-</html>

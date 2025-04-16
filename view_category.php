@@ -8,39 +8,52 @@ require_once 'functions.php';
 // Get category ID from URL
 $category_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-// Get category details
-function get_category($id) {
-    global $db;
-    $stmt = $db->prepare("SELECT id, name FROM categories WHERE id = ?");
-    $stmt->execute([$id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-
-// Get recipes for a category
-function get_recipes_by_category($category_id) {
-    global $db;
-    $stmt = $db->prepare("
-        SELECT r.id, r.title, r.description, r.ingredients, r.instructions, r.created_at, r.image_path, u.username
-        FROM recipes r
-        JOIN users u ON r.user_id = u.id
-        WHERE r.category_id = ?
-        ORDER BY r.title
-    ");
-    $stmt->execute([$category_id]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
+//Fetch category details
 $category = get_category($category_id);
 if (!$category) {
-    header('Location: index.php');
-    exit();
+    header('location: index.php');
+    exist();
 }
 
+//Fetch recipes for the category
 $recipes = get_recipes_by_category($category_id);
 
 // Page title
 $page_title = "Recipes in category: " . htmlspecialchars($category['name']);
-?>
+
+// Get category details
+// function get_category($id) {
+//     global $db;
+//     $stmt = $db->prepare("SELECT id, name FROM categories WHERE id = ?");
+//     $stmt->execute([$id]);
+//     return $stmt->fetch(PDO::FETCH_ASSOC);
+// }
+
+// // Get recipes for a category
+// function get_recipes_by_category($category_id) {
+//     global $db;
+//     $stmt = $db->prepare("
+//         SELECT r.id, r.title, r.description, r.ingredients, r.instructions, r.created_at, r.image_path, u.username
+//         FROM recipes r
+//         JOIN users u ON r.user_id = u.id
+//         WHERE r.category_id = ?
+//         ORDER BY r.title
+//     ");
+//     $stmt->execute([$category_id]);
+//     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+// }
+
+// $category = get_category($category_id);
+// if (!$category) {
+//     header('Location: index.php');
+//     exit();
+// }
+
+// $recipes = get_recipes_by_category($category_id);
+
+// // Page title
+// $page_title = "Recipes in category: " . htmlspecialchars($category['name']);
+// ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +64,7 @@ $page_title = "Recipes in category: " . htmlspecialchars($category['name']);
     <link rel="stylesheet" href="Style/view_categorystyle.css">
 </head>
 <body>
-    <!-- <?php include 'header.php'; // Include header if you have one ?> -->
+    <?php include 'header.php'; // Include header if you have one ?>
 
     <div class="container mt-4">
         <div class="row">

@@ -2,6 +2,7 @@
 session_start();
 include 'connect.php';
 
+
 // Determine sorting column and direction
 $valid_columns = ['title', 'created_at', 'update_at'];
 $sort_column = isset($_GET['sort']) && in_array($_GET['sort'], $valid_columns) ? $_GET['sort'] : 'created_at';
@@ -83,6 +84,19 @@ $arrow = $sort_direction === 'ASC' ? '▲' : '▼';
             <?php endif; ?>
         </ul>
     </nav>
+
+    <form method="GET" action="" class="search-form">
+        <input type="text" name="query" placeholder="Search recipes..." value="<?= htmlspecialchars($_GET['query'] ?? '') ?>">
+        <select name="category_id">
+            <option value="">All Categories</option>
+            <?php foreach ($categories as $category): ?>
+                <option value="<?= $category['id']; ?>" <?= (isset($_GET['category_id']) && $_GET['category_id'] == $category['id']) ? 'selected' : ''; ?>>
+                    <?= htmlspecialchars($category['name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit">Search</button>
+    </form>
 </header>
 
 <main>

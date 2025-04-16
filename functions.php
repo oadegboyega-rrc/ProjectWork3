@@ -28,4 +28,24 @@ function get_page_categories($page_id) {
     $stmt->execute([$page_id]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function get_category($id) {
+    global $db;
+    $stmt = $db->prepare("SELECT id, name FROM categories WHERE id = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function get_recipes_by_category($category_id) {
+    global $db;
+    $stmt = $db->prepare("
+        SELECT r.id, r.title, r.description, r.ingredients, r.instructions, r.created_at, r.image_path, u.username
+        FROM recipes r
+        JOIN users u ON r.user_id = u.id
+        WHERE r.category_id = ?
+        ORDER BY r.title
+    ");
+    $stmt->execute([$category_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>

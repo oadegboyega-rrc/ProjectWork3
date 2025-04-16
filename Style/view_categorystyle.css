@@ -143,3 +143,26 @@ footer {
     margin-top: 20px;
     border-top: 1px solid #ddd;
 }
+
+.recipe-image {
+    width: 100%; /* Make the image responsive */
+    max-width: 300px; /* Set a maximum width for the image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: Add rounded corners */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    margin-bottom: 10px; /* Add spacing below the image */
+}
+
+.recipe-image-placeholder {
+    width: 100%; /* Match the size of images */
+    max-width: 300px;
+    height: 200px; /* Set a fixed height for placeholders */
+    background-color: #f0f0f0; /* Light gray background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888; /* Text color */
+    font-size: 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
